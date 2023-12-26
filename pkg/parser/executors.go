@@ -7,6 +7,7 @@ import (
 	"github.com/CircleCI-Public/circleci-yaml-language-server/pkg/utils"
 	sitter "github.com/smacker/go-tree-sitter"
 	"go.lsp.dev/protocol"
+	"fmt"
 )
 
 func (doc *YamlDocument) parseExecutors(executorsNode *sitter.Node) {
@@ -47,6 +48,7 @@ func (doc *YamlDocument) parseSingleExecutor(executorNode *sitter.Node) {
 		return
 	}
 
+	
 	doc.iterateOnBlockMapping(blockMappingNode, func(child *sitter.Node) {
 		keyNode, _ := doc.GetKeyValueNodes(child)
 		keyName := doc.GetNodeText(keyNode)
@@ -54,12 +56,18 @@ func (doc *YamlDocument) parseSingleExecutor(executorNode *sitter.Node) {
 		switch keyName {
 		case "docker":
 			doc.Executors[executorName] = doc.parseSingleExecutorDocker(executorNameNode, blockMappingNode)
+		case "windows":
+			fmt.Println("Parsing as windows executor")
+			doc.Executors[executorName] = doc.parseSingleExecutorWindows(executorNameNode, blockMappingNode)		
 		case "machine":
-			doc.Executors[executorName] = doc.parseSingleExecutorMachine(executorNameNode, blockMappingNode)
+			// Check the image to determine if it's a Windows or Linux machine
+			if strings.Contains(executorName, "windows") {
+				doc.Executors[executorName] = doc.parseSingleExecutorWindows(executorNameNode, blockMappingNode)
+			} else {
+				doc.Executors[executorName] = doc.parseSingleExecutorMachine(executorNameNode, blockMappingNode)
+			}
 		case "macos":
 			doc.Executors[executorName] = doc.parseSingleExecutorMacOS(executorNameNode, blockMappingNode)
-		case "windows":
-			doc.Executors[executorName] = doc.parseSingleExecutorWindows(executorNameNode, blockMappingNode)
 		}
 	})
 
@@ -217,7 +225,8 @@ func (doc *YamlDocument) parseSingleExecutorWindows(nameNode *sitter.Node, value
 			keyName := doc.GetNodeText(keyNode)
 			switch keyName {
 			case "image":
-				res.Image = doc.GetNodeText(valueNode)
+				res.WindowsImage = doc.GetNodeText(valueNode)
+				res.WindowsImageRange = doc.NodeToRange(child)
 			}
 		})
 	}

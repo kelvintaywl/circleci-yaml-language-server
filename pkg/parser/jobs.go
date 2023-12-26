@@ -102,6 +102,10 @@ func (doc *YamlDocument) parseSingleJob(jobNode *sitter.Node) ast.Job {
 				res.Docker = doc.parseSingleExecutorDocker(keyNode, blockMappingNode)
 				res.DockerRange = doc.NodeToRange(child)
 
+			case "windows":
+				res.Windows = doc.parseSingleExecutorWindows(keyNode, blockMappingNode)
+				res.WindowsRange = doc.NodeToRange(child)
+				
 			case "machine":
 				machineNode = child
 				machineNodeFound = true

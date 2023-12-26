@@ -221,7 +221,8 @@ func (e MacOSExecutor) GetEnvs() Environment {
 
 type WindowsExecutor struct {
 	BaseExecutor
-	Image string
+	WindowsImage string
+	WindowsImageRange protocol.Range
 }
 
 func (e WindowsExecutor) GetRange() protocol.Range {

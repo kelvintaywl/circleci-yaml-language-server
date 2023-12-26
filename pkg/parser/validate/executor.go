@@ -223,10 +223,10 @@ func (val Validate) validateDockerExecutor(executor ast.DockerExecutor) {
 // WindowsExecutor
 
 var ValidWindowsResourceClasses = []string{
-	"medium",
-	"large",
-	"xlarge",
-	"2xlarge",
+	"windows.medium",
+	"windows.large",
+	"windows.xlarge",
+	"windows.2xlarge",
 }
 
 func (val Validate) validateWindowsExecutor(executor ast.WindowsExecutor) {

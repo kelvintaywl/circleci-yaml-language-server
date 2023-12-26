@@ -32,6 +32,12 @@ executors:
         resource_class: large
         parameters:
             dummyParam: { type: string, default: "dummy" }
+    windows-executor:
+        machine:
+          image: windows-server-2022-gui:current
+        resource_class: windows.large
+        environment:
+          IN_CI: true
 `
 
 func TestYamlDocument_parseExecutors(t *testing.T) {
@@ -186,8 +192,8 @@ func TestYamlDocument_parseExecutors(t *testing.T) {
 								Character: 4,
 							},
 							End: protocol.Position{
-								Line:      23,
-								Character: 0,
+								Line:      22,
+								Character: 58,
 							},
 						},
 						ResourceClass: "large",
@@ -256,8 +262,8 @@ func TestYamlDocument_parseExecutors(t *testing.T) {
 								Character: 8,
 							},
 							End: protocol.Position{
-								Line:      23,
-								Character: 0,
+								Line:      22,
+								Character: 58,
 							},
 						},
 					},
@@ -270,6 +276,66 @@ func TestYamlDocument_parseExecutors(t *testing.T) {
 						End: protocol.Position{
 							Line:      19,
 							Character: 27,
+						},
+					},
+				},
+				"windows-executor": ast.WindowsExecutor{
+					BaseExecutor: ast.BaseExecutor{
+						Name: "windows-executor",
+						NameRange: protocol.Range{
+							Start: protocol.Position{
+								Line:      23,
+								Character: 4,
+							},
+							End: protocol.Position{
+								Line:      23,
+								Character: 20,
+							},
+						},
+						Range: protocol.Range{
+							Start: protocol.Position{
+								Line:      23,
+								Character: 4,
+							},
+							End: protocol.Position{
+								Line:      29,
+								Character: 0,
+							},
+						},
+						ResourceClass: "windows.large",
+						ResourceClassRange: protocol.Range{
+							Start: protocol.Position{
+								Line:      26,
+								Character: 8,
+							},
+							End: protocol.Position{
+								Line:      26,
+								Character: 37,
+							},
+						},
+						Environment: ast.Environment{
+							Range: protocol.Range{
+								Start: protocol.Position{
+									Line:      28,
+									Character: 10,
+								},
+								End: protocol.Position{
+									Line:      29,
+									Character: 0,
+								},
+							},
+							Keys: []string{"IN_CI"},
+						},
+					},
+					WindowsImage: "windows-server-2022-gui:current",
+					WindowsImageRange: protocol.Range{
+						Start: protocol.Position{
+							Line:      25,
+							Character: 18,
+						},
+						End: protocol.Position{
+							Line:      25,
+							Character: 49,
 						},
 					},
 				},

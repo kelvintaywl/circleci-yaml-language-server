@@ -43,7 +43,10 @@ type Job struct {
 	MachineRange protocol.Range
 
 	MacOS      MacOSExecutor
-	MacOSRange protocol.Range
+	MacOSRange protocol.Range 
+
+    Windows      WindowsExecutor
+    WindowsRange protocol.Range 
 
 	CompletionItem *[]protocol.CompletionItem
 }

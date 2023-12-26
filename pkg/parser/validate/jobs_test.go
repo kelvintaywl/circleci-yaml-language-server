@@ -147,7 +147,24 @@ func TestResourceClass(t *testing.T) {
 				},
 				Severity: protocol.DiagnosticSeverityError,
 			},
-		}}
+		},		
+		{
+			label: "windows resource_class",
+			yamlData: `jobs:
+  test:
+    machine:
+      image: windows-server-2022-gui:current
+    resource_class: toto
+    steps:
+      - checkout`,
+			expectedDiag: protocol.Diagnostic{
+				Range: protocol.Range{
+					Start: protocol.Position{Line: 4, Character: 4},
+					End:   protocol.Position{Line: 4, Character: 24},
+				},
+				Severity: protocol.DiagnosticSeverityError,
+		},
+	},}
 
 	for _, testCase := range testCases {
 		t.Run("validate job resource_class: "+testCase.label, func(t *testing.T) {
