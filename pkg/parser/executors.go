@@ -225,8 +225,11 @@ func (doc *YamlDocument) parseSingleExecutorWindows(nameNode *sitter.Node, value
 			keyName := doc.GetNodeText(keyNode)
 			switch keyName {
 			case "image":
-				res.WindowsImage = doc.GetNodeText(valueNode)
-				res.WindowsImageRange = doc.NodeToRange(child)
+				res.Image = doc.GetNodeText(valueNode)
+				res.ImageRange = doc.NodeToRange(child)
+			case "resource_class":
+				res.ResourceClassRange = doc.NodeToRange(child)
+				res.ResourceClass = doc.GetNodeText(valueNode)
 			}
 		})
 	}
