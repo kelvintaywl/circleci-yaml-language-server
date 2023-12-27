@@ -327,8 +327,8 @@ func TestYamlDocument_parseExecutors(t *testing.T) {
 							Keys: []string{"IN_CI"},
 						},
 					},
-					WindowsImage: "windows-server-2022-gui:current",
-					WindowsImageRange: protocol.Range{
+					Image: "windows-server-2022-gui:current",
+					ImageRange: protocol.Range{
 						Start: protocol.Position{
 							Line:      25,
 							Character: 18,
