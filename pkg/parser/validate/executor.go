@@ -230,8 +230,25 @@ var ValidWindowsResourceClasses = []string{
 }
 
 func (val Validate) validateWindowsExecutor(executor ast.WindowsExecutor) {
-	// Same resource class as Linux
 	val.checkIfValidResourceClass(executor.ResourceClass, ValidWindowsResourceClasses, executor.ResourceClassRange)
+	// check image
+	if executor.Image != "" {
+		val.validateWindowsImage(executor.Image, executor.ImageRange)
+	} else {
+		val.addDiagnostic(utils.CreateErrorDiagnosticFromRange(
+			executor.Range,
+			"Missing image",
+		))
+	}
+}
+
+func (val Validate) validateWindowsImage(img string, imgRange protocol.Range) {
+	if utils.FindInArray(utils.ValidWindowsImages, img) == -1 {
+		val.addDiagnostic(utils.CreateErrorDiagnosticFromRange(
+			imgRange,
+			"Invalid or deprecated image",
+		))
+	}
 }
 
 func (val Validate) checkIfValidResourceClass(resourceClass string, validResourceClasses []string, resourceClassRange protocol.Range) {

@@ -42,7 +42,39 @@ var ValidARMOrMachineImagesUbuntu2204 = []string{
 	"ubuntu-2204:2022.04.2",
 	"ubuntu-2204:2022.04.1",
 }
+
 var ValidARMOrMachineImages = append(ValidARMOrMachineImagesUbuntu2004, ValidARMOrMachineImagesUbuntu2204...)
+
+var ValidWindowsImagesServer2022GUI = []string{
+	"windows-server-2022-gui:current",
+	"windows-server-2022-gui:edge",
+	"windows-server-2022-gui:2023.11.1",
+	"windows-server-2022-gui:2023.10.1",
+	"windows-server-2022-gui:2023.09.1",
+	"windows-server-2022-gui:2023.08.1",
+	"windows-server-2022-gui:2023.07.1",
+	"windows-server-2022-gui:2023.06.1",
+	"windows-server-2022-gui:2023.05.1",
+	"windows-server-2022-gui:2023.04.1",
+	"windows-server-2022-gui:2023.03.1",
+	"windows-server-2022-gui:2022.08.1",
+	"windows-server-2022-gui:2022.07.1",
+	"windows-server-2022-gui:2022.06.1",
+	"windows-server-2022-gui:2022.04.1",
+}
+
+var ValidWindowsImagesServer2019 = []string{
+	"windows-server-2019-vs2019:current",
+	"windows-server-2019-vs2019:edge",
+	"windows-server-2019-vs2019:2023.10.1",
+	"windows-server-2019-vs2019:2023.08.1",
+	"windows-server-2019-vs2019:2023.04.1",
+	"windows-server-2019-vs2019:2022.08.1",
+	"windows-server-2019-cuda:current",
+	"windows-server-2019-cuda:edge",
+}
+
+var ValidWindowsImages = append(ValidWindowsImagesServer2019, ValidWindowsImagesServer2022GUI...)
 
 func GetLatestUbuntu2204Image() string {
 	latestImg := ValidARMOrMachineImagesUbuntu2204[0]
